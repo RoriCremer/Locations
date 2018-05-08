@@ -1,0 +1,42 @@
+apply plugin: 'java'
+apply plugin: 'application'
+mainClassName = 'hello.Main'
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java/hello']
+        }
+    }
+    test {
+        java {
+            srcDirs = ['src/test/main/java/hello']
+        }
+    }
+}
+
+run {
+    if (project.hasProperty("pathArgs")) {
+        args Eval.me(pathArgs)
+    }
+}
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.assertj:assertj-core:3.8.0'
+}
+
+jar {
+    manifest {
+        attributes (
+            'Main-Class': 'hello.Main'
+        )
+    }
+}
